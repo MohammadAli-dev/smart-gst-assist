@@ -1,12 +1,178 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Lightbulb } from "lucide-react";
+import { toast } from "sonner";
+import { SuggestionCard } from "@/components/SuggestionCard";
+import { LoadingSkeleton } from "@/components/LoadingSkeleton";
+
+interface Suggestion {
+  id: number;
+  hsnCode: string;
+  description: string;
+  gstRate: string;
+  confidence: number;
+  reason: string;
+}
+
+const mockSuggestions: Suggestion[] = [
+  {
+    id: 1,
+    hsnCode: "4202.92",
+    description: "Travel, laptop and similar cases with outer surface of leather or plastic sheeting",
+    gstRate: "18%",
+    confidence: 92,
+    reason: "Matches keywords 'bag' and 'case' under Chapter 42 – Leather goods and travel accessories"
+  },
+  {
+    id: 2,
+    hsnCode: "8473.30",
+    description: "Parts and accessories of computers and laptops",
+    gstRate: "18%",
+    confidence: 74,
+    reason: "Contains term 'laptop charger', commonly classified under computer accessories"
+  },
+  {
+    id: 3,
+    hsnCode: "3926.20",
+    description: "Plastic articles and accessories for office or travel use",
+    gstRate: "18%",
+    confidence: 58,
+    reason: "Mentions 'plastic bag' — partial match to Chapter 39 (Plastics and articles thereof)"
+  }
+];
 
 const Index = () => {
+  const [description, setDescription] = useState("");
+  const [hsnCode, setHsnCode] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+  const [rejectedIds, setRejectedIds] = useState<Set<number>>(new Set());
+
+  const handleGetSuggestions = () => {
+    if (!description.trim()) {
+      toast.error("Please enter a product/service description");
+      return;
+    }
+
+    setIsLoading(true);
+    setSuggestions([]);
+    setRejectedIds(new Set());
+
+    // Simulate API call
+    setTimeout(() => {
+      setSuggestions(mockSuggestions);
+      setIsLoading(false);
+    }, 1000);
+  };
+
+  const handleAccept = (suggestion: Suggestion) => {
+    setHsnCode(suggestion.hsnCode);
+    toast.success("✅ AI suggestion applied successfully!", {
+      description: `HSN Code ${suggestion.hsnCode} has been applied`,
+    });
+  };
+
+  const handleReject = (id: number) => {
+    setRejectedIds(new Set([...rejectedIds, id]));
+    toast.info("Suggestion rejected", {
+      description: "This suggestion has been dismissed",
+    });
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      {/* Header */}
+      <header className="border-b bg-card">
+        <div className="container max-w-5xl mx-auto px-6 py-8">
+          <div className="flex items-center gap-3 mb-2">
+            <Lightbulb className="h-8 w-8 text-primary" />
+            <h1 className="text-3xl font-bold text-foreground">Smart HSN/SAC Code Assistant</h1>
+          </div>
+          <p className="text-muted-foreground">AI-powered co-pilot for GST classification</p>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="container max-w-5xl mx-auto px-6 py-8">
+        {/* Form Section */}
+        <div className="bg-card rounded-lg shadow-md p-8 mb-8">
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <Label htmlFor="description" className="text-base font-medium">
+                Product/Service Description
+              </Label>
+              <Input
+                id="description"
+                placeholder="e.g., Custom laptop bag with charger"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                className="h-12"
+              />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-4 items-end">
+              <div className="space-y-2">
+                <Label htmlFor="hsn" className="text-base font-medium">
+                  HSN/SAC Code
+                </Label>
+                <Input
+                  id="hsn"
+                  placeholder="Auto-filled after accepting suggestion"
+                  value={hsnCode}
+                  readOnly
+                  className="h-12 bg-muted/50"
+                />
+              </div>
+              <Button
+                onClick={handleGetSuggestions}
+                className="h-12 gap-2 px-6 whitespace-nowrap"
+                disabled={isLoading}
+              >
+                <Lightbulb className="h-5 w-5" />
+                Get AI Suggestion
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* AI Suggestions Panel */}
+        {(isLoading || suggestions.length > 0) && (
+          <div className="space-y-6">
+            <div className="flex items-center gap-2">
+              <div className="h-px flex-1 bg-border" />
+              <span className="text-sm font-medium text-muted-foreground">AI Suggestions</span>
+              <div className="h-px flex-1 bg-border" />
+            </div>
+
+            {isLoading ? (
+              <LoadingSkeleton />
+            ) : (
+              <div className="space-y-4">
+                {suggestions.map((suggestion) => (
+                  <SuggestionCard
+                    key={suggestion.id}
+                    {...suggestion}
+                    onAccept={() => handleAccept(suggestion)}
+                    onReject={() => handleReject(suggestion.id)}
+                    isRejected={rejectedIds.has(suggestion.id)}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+      </main>
+
+      {/* Footer */}
+      <footer className="border-t mt-16">
+        <div className="container max-w-5xl mx-auto px-6 py-8">
+          <p className="text-center text-sm text-muted-foreground">
+            💡 AI-powered suggestions to simplify GST classification. Confidence levels auto-calculated by model.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 };
