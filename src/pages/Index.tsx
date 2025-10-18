@@ -16,7 +16,7 @@ interface Suggestion {
   reason: string;
 }
 
-const mockSuggestions: Suggestion[] = [
+const mockHSNDatabase: Suggestion[] = [
   {
     id: 1,
     hsnCode: "4202.92",
@@ -40,8 +40,63 @@ const mockSuggestions: Suggestion[] = [
     gstRate: "18%",
     confidence: 58,
     reason: "Mentions 'plastic bag' — partial match to Chapter 39 (Plastics and articles thereof)"
+  },
+  {
+    id: 4,
+    hsnCode: "6109.10",
+    description: "T-shirts, singlets and other vests, knitted or crocheted, of cotton",
+    gstRate: "5%",
+    confidence: 88,
+    reason: "Textile clothing items made of cotton"
+  },
+  {
+    id: 5,
+    hsnCode: "8517.62",
+    description: "Machines for reception, conversion and transmission of voice, images or data",
+    gstRate: "18%",
+    confidence: 85,
+    reason: "Covers mobile phones, smartphones and communication devices"
+  },
+  {
+    id: 6,
+    hsnCode: "3004.90",
+    description: "Medicaments consisting of mixed or unmixed products for therapeutic or prophylactic uses",
+    gstRate: "12%",
+    confidence: 90,
+    reason: "Pharmaceutical products and medicines"
+  },
+  {
+    id: 7,
+    hsnCode: "8471.30",
+    description: "Portable automatic data processing machines, weighing not more than 10 kg",
+    gstRate: "18%",
+    confidence: 95,
+    reason: "Laptops and portable computers"
   }
 ];
+
+const matchSuggestions = (description: string): Suggestion[] => {
+  const tokens = description.toLowerCase().split(/\s+/).filter(t => t.length > 2);
+  
+  if (tokens.length === 0) return [];
+
+  const scored = mockHSNDatabase.map(suggestion => {
+    const searchText = `${suggestion.description} ${suggestion.reason}`.toLowerCase();
+    const matches = tokens.filter(token => searchText.includes(token)).length;
+    const score = (matches / tokens.length) * 100;
+    
+    return {
+      ...suggestion,
+      matchScore: score,
+      confidence: Math.min(95, Math.round(suggestion.confidence * (score / 100) + score * 0.3))
+    };
+  });
+
+  return scored
+    .filter(s => s.matchScore > 0)
+    .sort((a, b) => b.matchScore - a.matchScore)
+    .slice(0, 3);
+};
 
 const Index = () => {
   const [description, setDescription] = useState("");
@@ -60,9 +115,17 @@ const Index = () => {
     setSuggestions([]);
     setRejectedIds(new Set());
 
-    // Simulate API call
+    // Simulate API call with filtering
     setTimeout(() => {
-      setSuggestions(mockSuggestions);
+      const matches = matchSuggestions(description);
+      
+      if (matches.length === 0) {
+        toast.info("No matching HSN codes found", {
+          description: "Try different keywords or broader terms"
+        });
+      }
+      
+      setSuggestions(matches);
       setIsLoading(false);
     }, 1000);
   };
