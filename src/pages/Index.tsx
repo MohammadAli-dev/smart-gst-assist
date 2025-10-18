@@ -12,123 +12,107 @@ interface Suggestion {
   hsnCode: string;
   description: string;
   gstRate: string;
-  // confidence: number;
-  // reason: string;
+  confidence: number;
+  reason: string;
 }
 
 const mockHSNDatabase: Suggestion[] = [
   {
-    id: 1,
-    hsnCode: "4202.92",
-    description: "Travel, laptop and similar cases with outer surface of leather or plastic sheeting",
-    gstRate: "18%"
-    // confidence: 92,
-    // reason: "Matches keywords 'bag' and 'case' under Chapter 42 – Leather goods and travel accessories"
+    "id": 1,
+    "hsnCode": "25232930",
+    "description": "Ordinary Portland Cement (OPC) 53 Grade",
+    "gstRate": "28%",
+    "confidence": 0,
+    "reason": ""
   },
   {
-    id: 2,
-    hsnCode: "8473.30",
-    description: "Parts and accessories of computers and laptops",
-    gstRate: "18%"
-    // confidence: 74,
-    // reason: "Contains term 'laptop charger', commonly classified under computer accessories"
+    "id": 2,
+    "hsnCode": "68079010",
+    "description": "Mosaic tiles made of cement and marble chips",
+    "gstRate": "18%",
+    "confidence": 0,
+    "reason": ""
   },
   {
-    id: 3,
-    hsnCode: "3926.20",
-    description: "Plastic articles and accessories for office or travel use",
-    gstRate: "18%"
-    // confidence: 58,
-    // reason: "Mentions 'plastic bag' — partial match to Chapter 39 (Plastics and articles thereof)"
+    "id": 3,
+    "hsnCode": "68022390",
+    "description": "Granite slabs and tiles polished",
+    "gstRate": "18%",
+    "confidence": 0,
+    "reason": ""
   },
   {
-    id: 4,
-    hsnCode: "6109.10",
-    description: "T-shirts, singlets and other vests, knitted or crocheted, of cotton",
-    gstRate: "5%"
-    // confidence: 88,
-    // reason: "Textile clothing items made of cotton"
+    "id": 4,
+    "hsnCode": "69072100",
+    "description": "Ceramic wall tiles glazed",
+    "gstRate": "18%",
+    "confidence": 0,
+    "reason": ""
   },
   {
-    id: 5,
-    hsnCode: "8517.62",
-    description: "Machines for reception, conversion and transmission of voice, images or data",
-    gstRate: "18%"
-    // confidence: 85,
-    // reason: "Covers mobile phones, smartphones and communication devices"
+    "id": 5,
+    "hsnCode": "69089090",
+    "description": "Porcelain vitrified tiles, polished",
+    "gstRate": "18%",
+    "confidence": 0,
+    "reason": ""
   },
   {
-    id: 6,
-    hsnCode: "3004.90",
-    description: "Medicaments consisting of mixed or unmixed products for therapeutic or prophylactic uses",
-    gstRate: "12%"
-    // confidence: 90,
-    // reason: "Pharmaceutical products and medicines"
+    "id": 6,
+    "hsnCode": "68109990",
+    "description": "Ready mix plaster or mortar based on cement",
+    "gstRate": "28%",
+    "confidence": 0,
+    "reason": ""
   },
   {
-    id: 7,
-    hsnCode: "8471.30",
-    description: "Portable automatic data processing machines, weighing not more than 10 kg",
-    gstRate: "18%"
-    // confidence: 95,
-    // reason: "Laptops and portable computers"
+    "id": 7,
+    "hsnCode": "25210010",
+    "description": "Limestone for manufacture of lime or cement",
+    "gstRate": "5%",
+    "confidence": 0,
+    "reason": ""
   },
   {
-    id: 8,
-    hsnCode: "6109",
-    description: "T-shirts, singlets and other vests, knitted or crocheted",
-    gstRate: "5%"
-    // confidence: 95,
-    // reason: "Keyword match: 't-shirt', commonly classified under Chapter 61 (apparel, knitted)"
+    "id": 8,
+    "hsnCode": "25051019",
+    "description": "Silica sand other than quartz",
+    "gstRate": "5%",
+    "confidence": 0,
+    "reason": ""
   },
   {
-    id: 9,
-    hsnCode: "9403",
-    description: "Other furniture and parts thereof (office, kitchen, bedroom)",
-    gstRate: "18%"
-    // confidence: 87,
-    // reason: "Matched 'office chair' and 'table' — standard furniture classification under Chapter 94"
+    "id": 9,
+    "hsnCode": "25051020",
+    "description": "River sand, washed and graded",
+    "gstRate": "5%",
+    "confidence": 0,
+    "reason": ""
   },
   {
-    id: 10,
-    hsnCode: "2106",
-    description: "Food preparations not elsewhere specified or included",
-    gstRate: "12%"
-    // confidence: 78,
-    // reason: "Detected food-related terms — likely under Chapter 21 (misc food products)"
+    "id": 10,
+    "hsnCode": "38245010",
+    "description": "Tile adhesive or cementitious adhesive",
+    "gstRate": "18%",
+    "confidence": 0,
+    "reason": ""
   },
   {
     id: 11,
-    hsnCode: "8418",
-    description: "Refrigerators, freezers and other refrigerating or freezing equipment",
-    gstRate: "18%"
-    // confidence: 89,
-    // reason: "Recognized 'fridge' keyword; verified GST Council rate mapping"
+    hsnCode: "4202.92",
+    description: "Travel, laptop and similar cases with outer surface of leather or plastic sheeting",
+    gstRate: "18%",
+    confidence: 0,
+    reason: ""
   },
   {
     id: 12,
-    hsnCode: "8703",
-    description: "Motor cars and other motor vehicles for the transport of persons",
-    gstRate: "28%"
-    // confidence: 91,
-    // reason: "Identified 'car' and 'automobile' keywords under Chapter 87 — Vehicles"
+    hsnCode: "8473.30",
+    description: "Parts and accessories of computers and laptops",
+    gstRate: "18%",
+    confidence: 0,
+    reason: ""
   },
-  {
-    id: 13,
-    hsnCode: "3824.50.90",
-    description: "Prepared binders for foundry moulds or cores; other chemical products n.e.s. (Tile Adhesive / Ready Mix Mortar)",
-    gstRate: "18%"
-    // confidence: 94,
-    // reason: "Detected 'tile adhesive' or 'dry mix' — classified under Chapter 38 as construction chemical preparations"
-  },
-  {
-    id: 14,
-    hsnCode: "3824.99.90",
-    description: "Other chemical preparations not elsewhere specified (construction-grade polymer mixes, mortars)",
-    gstRate: "18%"
-    // confidence: 88,
-    // reason: "Identified mixture of cement, silica, fly ash and polymer binders — classified under miscellaneous chemical products"
-  }
 ];
 
 const matchSuggestions = (description: string): Suggestion[] => {
