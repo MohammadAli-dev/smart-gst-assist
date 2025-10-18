@@ -45,33 +45,89 @@ const mockHSNDatabase: Suggestion[] = [
     id: 4,
     hsnCode: "6109.10",
     description: "T-shirts, singlets and other vests, knitted or crocheted, of cotton",
-    gstRate: "5%",
-    confidence: 88,
-    reason: "Textile clothing items made of cotton"
+    gstRate: "5%"
+    // confidence: 88,
+    // reason: "Textile clothing items made of cotton"
   },
   {
     id: 5,
     hsnCode: "8517.62",
     description: "Machines for reception, conversion and transmission of voice, images or data",
-    gstRate: "18%",
-    confidence: 85,
-    reason: "Covers mobile phones, smartphones and communication devices"
+    gstRate: "18%"
+    // confidence: 85,
+    // reason: "Covers mobile phones, smartphones and communication devices"
   },
   {
     id: 6,
     hsnCode: "3004.90",
     description: "Medicaments consisting of mixed or unmixed products for therapeutic or prophylactic uses",
-    gstRate: "12%",
-    confidence: 90,
-    reason: "Pharmaceutical products and medicines"
+    gstRate: "12%"
+    // confidence: 90,
+    // reason: "Pharmaceutical products and medicines"
   },
   {
     id: 7,
     hsnCode: "8471.30",
     description: "Portable automatic data processing machines, weighing not more than 10 kg",
-    gstRate: "18%",
-    confidence: 95,
-    reason: "Laptops and portable computers"
+    gstRate: "18%"
+    // confidence: 95,
+    // reason: "Laptops and portable computers"
+  },
+  {
+    id: 8,
+    hsnCode: "6109",
+    description: "T-shirts, singlets and other vests, knitted or crocheted",
+    gstRate: "5%"
+    // confidence: 95,
+    // reason: "Keyword match: 't-shirt', commonly classified under Chapter 61 (apparel, knitted)"
+  },
+  {
+    id: 9,
+    hsnCode: "9403",
+    description: "Other furniture and parts thereof (office, kitchen, bedroom)",
+    gstRate: "18%"
+    // confidence: 87,
+    // reason: "Matched 'office chair' and 'table' — standard furniture classification under Chapter 94"
+  },
+  {
+    id: 10,
+    hsnCode: "2106",
+    description: "Food preparations not elsewhere specified or included",
+    gstRate: "12%"
+    // confidence: 78,
+    // reason: "Detected food-related terms — likely under Chapter 21 (misc food products)"
+  },
+  {
+    id: 11,
+    hsnCode: "8418",
+    description: "Refrigerators, freezers and other refrigerating or freezing equipment",
+    gstRate: "18%"
+    // confidence: 89,
+    // reason: "Recognized 'fridge' keyword; verified GST Council rate mapping"
+  },
+  {
+    id: 12,
+    hsnCode: "8703",
+    description: "Motor cars and other motor vehicles for the transport of persons",
+    gstRate: "28%"
+    // confidence: 91,
+    // reason: "Identified 'car' and 'automobile' keywords under Chapter 87 — Vehicles"
+  },
+  {
+    id: 13,
+    hsnCode: "3824.50.90",
+    description: "Prepared binders for foundry moulds or cores; other chemical products n.e.s. (Tile Adhesive / Ready Mix Mortar)",
+    gstRate: "18%"
+    // confidence: 94,
+    // reason: "Detected 'tile adhesive' or 'dry mix' — classified under Chapter 38 as construction chemical preparations"
+  },
+  {
+    id: 14,
+    hsnCode: "3824.99.90",
+    description: "Other chemical preparations not elsewhere specified (construction-grade polymer mixes, mortars)",
+    gstRate: "18%"
+    // confidence: 88,
+    // reason: "Identified mixture of cement, silica, fly ash and polymer binders — classified under miscellaneous chemical products"
   }
 ];
 
