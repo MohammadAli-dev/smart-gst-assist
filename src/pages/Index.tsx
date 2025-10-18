@@ -12,8 +12,8 @@ interface Suggestion {
   hsnCode: string;
   description: string;
   gstRate: string;
-  confidence: number;
-  reason: string;
+  // confidence: number;
+  // reason: string;
 }
 
 const mockHSNDatabase: Suggestion[] = [
@@ -21,25 +21,25 @@ const mockHSNDatabase: Suggestion[] = [
     id: 1,
     hsnCode: "4202.92",
     description: "Travel, laptop and similar cases with outer surface of leather or plastic sheeting",
-    gstRate: "18%",
-    confidence: 92,
-    reason: "Matches keywords 'bag' and 'case' under Chapter 42 – Leather goods and travel accessories"
+    gstRate: "18%"
+    // confidence: 92,
+    // reason: "Matches keywords 'bag' and 'case' under Chapter 42 – Leather goods and travel accessories"
   },
   {
     id: 2,
     hsnCode: "8473.30",
     description: "Parts and accessories of computers and laptops",
-    gstRate: "18%",
-    confidence: 74,
-    reason: "Contains term 'laptop charger', commonly classified under computer accessories"
+    gstRate: "18%"
+    // confidence: 74,
+    // reason: "Contains term 'laptop charger', commonly classified under computer accessories"
   },
   {
     id: 3,
     hsnCode: "3926.20",
     description: "Plastic articles and accessories for office or travel use",
-    gstRate: "18%",
-    confidence: 58,
-    reason: "Mentions 'plastic bag' — partial match to Chapter 39 (Plastics and articles thereof)"
+    gstRate: "18%"
+    // confidence: 58,
+    // reason: "Mentions 'plastic bag' — partial match to Chapter 39 (Plastics and articles thereof)"
   },
   {
     id: 4,
