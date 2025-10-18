@@ -81,14 +81,25 @@ const matchSuggestions = (description: string): Suggestion[] => {
   if (tokens.length === 0) return [];
 
   const scored = mockHSNDatabase.map(suggestion => {
-    const searchText = `${suggestion.description} ${suggestion.reason}`.toLowerCase();
-    const matches = tokens.filter(token => searchText.includes(token)).length;
+    const searchText = `${suggestion.description}`.toLowerCase();
+    const matchedTokens = tokens.filter(token => searchText.includes(token));
+    const matches = matchedTokens.length;
     const score = (matches / tokens.length) * 100;
+    
+    // Calculate dynamic confidence based on match quality
+    const baseConfidence = Math.round((matches / tokens.length) * 100);
+    const adjustedConfidence = Math.min(95, Math.max(45, baseConfidence));
+    
+    // Generate dynamic reason based on matched tokens
+    const reason = matches > 0 
+      ? `Matched keywords: '${matchedTokens.join("', '")}' in ${suggestion.description.substring(0, 50)}...`
+      : "No direct keyword match";
     
     return {
       ...suggestion,
       matchScore: score,
-      confidence: Math.min(95, Math.round(suggestion.confidence * (score / 100) + score * 0.3))
+      confidence: adjustedConfidence,
+      reason
     };
   });
 
